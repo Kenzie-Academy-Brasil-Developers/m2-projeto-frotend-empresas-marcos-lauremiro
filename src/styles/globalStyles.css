@@ -1,0 +1,24 @@
+:root{
+    /* cores */
+    --color-blue: #4200ff;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-red: #ce4646;
+    --color-green: #4ba036;
+    
+
+    /* fonts */
+    --font-primary: font-family: 'Inter', sans-serif;
+
+    --font-bold: bold;
+    --font-regular: normal;
+
+    --font-size-1: 3rem;
+    --font-size-2: 2rem;
+    --font-size-3: 1.5rem;
+    --font-size-4: 1rem;
+    --font-size-5: .75rem;
+
+    /* detals */
+    --height-buttons: 2.5rem;
+}
