@@ -1,3 +1,6 @@
+import { renderHomePageEmpresas, renderSelect } from "./renders.js"
+import { getEmpresas, getCategory  } from "./request.js"
+
 function goLogin () {
     const buttonLogin = document.querySelector('#button-login-home')
 
@@ -15,3 +18,7 @@ function goRegister () {
 }
 goLogin ()
 goRegister ()
+
+renderHomePageEmpresas(await getEmpresas())
+console.log(await getCategory())
+renderSelect(await getCategory())
