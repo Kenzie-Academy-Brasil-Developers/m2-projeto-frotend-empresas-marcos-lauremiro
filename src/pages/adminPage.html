@@ -12,7 +12,12 @@
     <link rel="stylesheet" href="../styles/header.css">
     <link rel="stylesheet" href="../styles/button.css">
     <link rel="stylesheet" href="../styles/input.css">
-    <link rel="stylesheet" href="../styles/modalcriar.css">
+    <link rel="stylesheet" href="../styles/modalViews.css">
+    <link rel="stylesheet" href="../styles/modalCriar.css">
+    <link rel="stylesheet" href="../styles/modalEdit.css">
+    <link rel="stylesheet" href="../styles/modalDelet.css">
+    <link rel="stylesheet" href="../styles/modalEditUser.css">
+    <link rel="stylesheet" href="../styles/modalDeletUser.css">
 
     <title>Pagina de administrador</title>
 </head>
@@ -204,13 +209,17 @@
                 <h1>Name do departamento</h1>
                 <span>X</span>
             </div>
-            <h2>Descrição do departamento</h2>
-            <div>
+            <div class="descript__container">
+                <h2>Descrição do departamento</h2>
+            </div>
+            <div class="label">
                 <label for="">Empresa pertecente</label>
+            </div>
+            <div class="view__select">
                 <select name="" id="">
                     <option value="">selecionar usuario</option>
                 </select>
-                <button>Contratar</button>
+                <button class="button button__green">Contratar</button>
             </div>
             
             <ul>
@@ -219,61 +228,99 @@
                         <h3>Username</h3>
                         <p>company name</p>
                     </div>
-                    <button>Desligar</button>
+                    <button class="button button__red">Desligar</button>
                 </li>
+                <li>
+                    <div>
+                        <h3>Username</h3>
+                        <p>company name</p>
+                    </div>
+                    <button class="button button__red">Desligar</button>
+                </li>
+                <li>
+                    <div>
+                        <h3>Username</h3>
+                        <p>company name</p>
+                    </div>
+                    <button class="button button__red">Desligar</button>
+                </li>
+                <li>
+                    <div>
+                        <h3>Username</h3>
+                        <p>company name</p>
+                    </div>
+                    <button class="button button__red">Desligar</button>
+                </li>
+                <li>
+                    <div>
+                        <h3>Username</h3>
+                        <p>company name</p>
+                    </div>
+                    <button class="button button__red">Desligar</button>
+                </li>
+                
+                
             </ul>
         </div>
     </dialog>
 
     <dialog class="criate-departamento">
-        <div>
-            <div>
+        <div class="criate__container">
+            <div class="header__criate">
                 <h1>Ciar departamento</h1>
                 <span>X</span>
             </div>
             <form action="">
-                <input type="text" name="" id="">
-                <input type="text" name="" id="">
+                <input class="input" placeholder="Nome do detartamento" type="text" name="" id="">
+                <input class="input" placeholder="Descrição" type="text" name="" id="">
                 <select name="" id="">
                     <option value="">Selecionar empresa</option>
                 </select>
-                <button>Criar</button>
+                <button class="button button__green">Criar</button>
             </form>
         </div>
     </dialog>
 
     <dialog class="edit-departament">
-        <h1>Editar Departamento</h1>
-        <form action="">
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <button>Salvar</button>
-        </form>
+        <div class="edit__container">
+            <div class="header__edit">
+                <h1>Editar Departamento</h1>
+                <span>X</span>
+            </div>
+            <form action="">
+                <textarea placeholder="Valores anteriores da descrição" name="" id="" cols="30" rows="5"></textarea>
+                <button class="button button__green">Salvar</button>
+            </form>
+        </div>
     </dialog>
 
     <dialog class="delet-modal">
-        <div>
+        <div class="delet__container">
             <h1>Realmente deseja remover o Departamento NOME e demitir seus funcionarios?</h1>
-            <button>Remover</button>
+            <button class="button button__red_back">Remover</button>
+            <span>X</span>
         </div>
     </dialog>
 
     <dialog class="edit-user-modal">
-        <div>
-            <h1>Editar usuario</h1>
+        <div class="edit-user__container">
+            <div class="header__edit-user">
+                <h1>Editar usuario</h1>
+                <span>X</span>
+            </div>
             <form action="">
-                <input placeholder="Nome" type="text" name="" id="">
-                <input placeholder="E-mail" type="email" name="" id="">
-                <input placeholder="Senha" type="password" name="" id="">
-                <button>Salvar</button>
+                <input class="input" placeholder="Nome" type="text" name="" id="">
+                <input class="input" placeholder="E-mail" type="email" name="" id="">
+                <button class="button button__green">Salvar</button>
             </form>
-
         </div>
     </dialog>
 
     <dialog class="delet-user-modal">
-        <div>
+        <div class="delet-user__container">
             <h1>Realmente deseja remover o usuario NOME?</h1>
-            <button>Remover</button>
+            <button class="button button__red_back">Remover</button>
+            <span>X</span>
         </div>
     </dialog>
 
