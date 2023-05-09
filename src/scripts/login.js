@@ -13,5 +13,17 @@ function goRegister () {
     })
 }
 
+function login () {
+    const inpEmail = document.querySelector('#email-login')
+    const inpPassword = document.querySelector('#password-login')
+    let loginBody = {}
+
+    document.querySelector('#button-login').addEventListener('click', (e) =>{
+        e.preventDefault()
+        
+    })
+
+}
+
 goRegister ()
 goHome ()

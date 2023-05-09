@@ -1,3 +1,7 @@
+import { companesCategory } from "./request.js";
+
+// RENDER HOME PAGE ========================
+
 export function renderHomePageEmpresas(arrayEmpresas, arrayCategory) {
     const ul = document.querySelector('.lista-de-empresas')
     ul.innerHTML = ''
@@ -13,10 +17,15 @@ export function renderHomePageEmpresas(arrayEmpresas, arrayCategory) {
 
         h3.innerHTML = empresa.name
 
+        arrayCategory.forEach( category => {
+            if(category.id == empresa.category_id){
+                span.innerText = category.name
+            }
+        })
     });
 }
 
-export function renderSelect(arrayCategories, empresaPorCategory) {
+export function renderSelect(arrayCategories, arrayEmpresas) {
     const select = document.querySelector('#setor')
 
     arrayCategories.forEach(category => {
@@ -27,6 +36,16 @@ export function renderSelect(arrayCategories, empresaPorCategory) {
         opt.innerText = category.name
 
         opt.value = category.name
+
+        select.addEventListener('change', async (e) => {
+            if(e.target.value == 'All'){
+                renderHomePageEmpresas(arrayEmpresas, arrayCategories)
+            }else{
+                const empresas = await companesCategory(e.target.value)
+                renderHomePageEmpresas(empresas, arrayCategories)
+            }
+            console.log(e.target.value)
+        })
     })
     
 }

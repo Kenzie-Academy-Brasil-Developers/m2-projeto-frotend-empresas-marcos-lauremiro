@@ -19,6 +19,6 @@ function goRegister () {
 goLogin ()
 goRegister ()
 
-renderHomePageEmpresas(await getEmpresas())
-console.log(await getCategory())
-renderSelect(await getCategory())
+renderHomePageEmpresas(await getEmpresas(), await getCategory())
+
+renderSelect(await getCategory(), await getEmpresas())
