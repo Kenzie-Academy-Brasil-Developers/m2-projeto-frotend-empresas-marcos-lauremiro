@@ -1,3 +1,6 @@
+import { red } from "./request.js"
+import { toast } from "./toast.js"
+
 function goHome () {
     const buttonHome = document.querySelector('#button-register-home')
 
@@ -13,6 +16,30 @@ function goLogin () {
         location.replace('../pages/login.html')
     })
 }
+
+// function showCreate () {
+//     const inputs = document.querySelectorAll('.input')
+//     const buttonCreate = document.querySelector('.button_create')
+//     let createBody = {}
+//     let count = 0
+
+//     buttonCreate.addEventListener('click', () => {
+//         inputs.forEach(input => {
+//             if(input.value.trim() = ''){
+//                 count ++
+//             }
+//             createBody[input.name] = input.value
+        
+//         })
+
+//         if(count !== 0){
+//             count = 0
+//             toast(red, 'Por favor preencha todos os campos corretamente')
+//         }else{
+             
+//         }
+//     })
+// }
 
 goLogin ()
 goHome ()

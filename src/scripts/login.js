@@ -1,3 +1,6 @@
+import { red,  loginRequest } from './request.js'
+import { toast } from './toast.js'
+
 function goHome () {
     const buttonHome = document.querySelector('#button-home-login')
 
@@ -7,23 +10,44 @@ function goHome () {
 }
 
 function goRegister () {
-    const buttonRegister = document.querySelector('#button-register-login')
-    buttonRegister.addEventListener('click', (e) => {
-        location.replace('../pages/register.html')
+    const buttonRegister = document.querySelectorAll('.button-register-login')
+    buttonRegister.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault()
+            location.replace('../pages/register.html')
+        })
     })
+
 }
 
-function login () {
-    const inpEmail = document.querySelector('#email-login')
-    const inpPassword = document.querySelector('#password-login')
+function loginInputs () {
+    const inps = document.querySelectorAll('.input')
+    const buttonLogin = document.querySelector('#button-login')
     let loginBody = {}
+    let count = 0
 
-    document.querySelector('#button-login').addEventListener('click', (e) =>{
+    buttonLogin.addEventListener('click', async (e) => {
         e.preventDefault()
-        
-    })
 
+        inps.forEach(input => {
+            if(input.value.trim() == ''){
+                count ++
+            }
+            
+            loginBody[input.name] = input.value
+        })
+        
+        if(count !== 0) {
+            count = 0
+            return toast( red, 'Por favor preencha todos os capos' )
+        }else{
+            const token = await  loginRequest(loginBody)
+
+            return token
+        }
+    })
 }
+loginInputs ()
 
 goRegister ()
 goHome ()

@@ -85,9 +85,6 @@
 
     padding: .5rem;
 }
-.departamentos__container > .dep li > div{
-    
-}
 .departamentos__container > .dep li > .names{
     display: flex;
     flex-direction: column;  
@@ -104,6 +101,7 @@
 }
 .departamentos__container > .dep li > .icons img{
     cursor: pointer;
+    width: 20px;
 }
 .departamentos__container > h1{
     font-size: var(--font-size-3);

@@ -1,4 +1,8 @@
 
+import { toast } from "./toast.js"
+
+export const red = '#FF5630'
+export const green = '#36B37E'
 
 const baseURL = 'http://localhost:3333'
 const requestHeader = {
@@ -61,16 +65,43 @@ export async function companesCategory(nomeCategoria){
 
 // LOGIN============================
 
-export async function login(loginBody){
+
+
+export async function loginRequest(loginBody){
     const loginfunc = await fetch (`${baseURL}/auth/login`, {
-        method: 'POST',
+        method: "POST",
         headers: requestHeader,
-        body: loginBody
+        body: JSON.stringify(loginBody)
+
     })
     .then(async (res) => {
         if(res.ok){
             const response = await res.json()
             
+            const {authToken, isAdm} = response
+
+            localStorage.setItem('@token', JSON.stringify(authToken))
+            localStorage.setItem('@isAdm', JSON.stringify(isAdm))    
+            
+            console.log(response)
+            
+            toast(green, 'Login realizado')
+
+            if(isAdm){
+                setTimeout(() => {
+                    location.replace("../pages/adminPage.html")
+                }, 1000)
+            }else{
+                setTimeout(() => {
+                    location.replace("../pages/userPages.html")
+                }, 1000)
+            } 
+            return response
+        }else{
+            const response = await res.json()
+
+            toast(red, response.message)
         }
     })
+    return loginfunc
 }
