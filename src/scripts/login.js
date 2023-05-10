@@ -47,6 +47,8 @@ function loginInputs () {
         }
     })
 }
+
+console.log(loginInputs())
 loginInputs ()
 
 goRegister ()

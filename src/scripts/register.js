@@ -1,4 +1,4 @@
-import { red } from "./request.js"
+import { red, register } from "./request.js"
 import { toast } from "./toast.js"
 
 function goHome () {
@@ -17,29 +17,35 @@ function goLogin () {
     })
 }
 
-// function showCreate () {
-//     const inputs = document.querySelectorAll('.input')
-//     const buttonCreate = document.querySelector('.button_create')
-//     let createBody = {}
-//     let count = 0
+function showCreate () {
+    const inputs = document.querySelectorAll('.input')
+    const buttonCreate = document.querySelector('.button_create')
+    let createBody = {}
+    let count = 0
 
-//     buttonCreate.addEventListener('click', () => {
-//         inputs.forEach(input => {
-//             if(input.value.trim() = ''){
-//                 count ++
-//             }
-//             createBody[input.name] = input.value
+    buttonCreate.addEventListener('click', async (e) => {
+        e.preventDefault()
         
-//         })
+        inputs.forEach(input => {
+            if(input.value.trim() == ''){
+                count ++
+            }
+            createBody[input.name] = input.value
+        
+        })
 
-//         if(count !== 0){
-//             count = 0
-//             toast(red, 'Por favor preencha todos os campos corretamente')
-//         }else{
-             
-//         }
-//     })
-// }
+        if(count !== 0){
+            count = 0
+            
+            toast(red, 'Por favor preencha todos os campos corretamente')
+            
+        }else{
+            await register(createBody)
+        }
+    })
+}
+
+showCreate ()
 
 goLogin ()
 goHome ()

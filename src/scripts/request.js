@@ -50,22 +50,32 @@ export async function companesCategory(nomeCategoria){
 
 // CADASTRO============================
 
-// export async function register(crateBody){
-//     const register = await fetch(`${baseURL}/employees/create`, {
-//         method: "POST",
-//         headers: requestHeader,
-//         body: JSON.stringify(crateBody)
-//     })
-//     .then(async (res) => {
-//         if(res.ok){
-//             const 
-//         }
-//     })
-// }
+export async function register(createBody){
+    const register = await fetch(`${baseURL}/employees/create`, {
+        method: "POST",
+        headers: requestHeader,
+        body: JSON.stringify(createBody)
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = await res.json()
+
+            toast(green, 'Conta criada com sucesso')
+            
+            setTimeout(() => {
+                location.replace("../pages/login.html")
+            }, 500)
+
+            return response
+        }else{
+            const response = await res.json()
+
+            toast(red, await response.message)
+        }
+    })
+}
 
 // LOGIN============================
-
-
 
 export async function loginRequest(loginBody){
     const loginfunc = await fetch (`${baseURL}/auth/login`, {
@@ -105,3 +115,6 @@ export async function loginRequest(loginBody){
     })
     return loginfunc
 }
+
+// ADMIN============================
+
