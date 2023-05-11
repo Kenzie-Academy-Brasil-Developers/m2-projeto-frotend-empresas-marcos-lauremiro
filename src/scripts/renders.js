@@ -1,4 +1,6 @@
-import { companesCategory } from "./request.js";
+
+import { companesCategory, companiasPorId, departamentPorEmpresa } from "./request.js";
+
 
 // RENDER HOME PAGE ========================
 
@@ -44,7 +46,6 @@ export function renderSelect(arrayCategories, arrayEmpresas) {
                 const empresas = await companesCategory(e.target.value)
                 renderHomePageEmpresas(empresas, arrayCategories)
             }
-            console.log(e.target.value)
         })
     })
     
@@ -52,38 +53,18 @@ export function renderSelect(arrayCategories, arrayEmpresas) {
 
 // RENDER ADMIN PAGE ========================
 
-export function showSelect(arrayEmpresas) {
-    const select = document.querySelector('.select')
-    
-    arrayEmpresas.forEach(empresa => {
-        const opt = document.createElement('option')
-
-        select.appendChild(opt)
-
-        opt.innerText = empresa.name
-        opt.value = empresa.name
-
-        select.addEventListener('change', async (e) => {
-            if(e.target.value == All){
-                //não renderiza departamento
-                //mas todos os usuarios cadastrados sim
-            }else{
-                //renderiza o departamento da empresa selecionada
-            }
-        })
-    });
-}
 
 export function renderDepartamentos (arrayDepartamentos) {
     const departamentos = document.querySelector('.dep')
-
-    arrayDepartamentos.forEach( departamento => {
+    departamentos.innerHTML = ''
+    
+    arrayDepartamentos.forEach(departamento => {
         const li = document.createElement('li')
         const divNames = document.createElement('div')
         const h2 = document.createElement('h2')
         const pDescript = document.createElement('p')
         const pNameCompani = document.createElement('p')
-
+        
         const divIcons = document.createElement('div')
         const imgEyes = document.createElement('img')
         const imgPen = document.createElement('img')
@@ -104,18 +85,77 @@ export function renderDepartamentos (arrayDepartamentos) {
 
         divNames.classList.add('names')
         h2.innerHTML = departamento.name
-        pDescript.innerHTML = departamento.descript
-        pNameCompani.innerHTML = compania.name
-
+        pDescript.innerHTML = departamento.description
+        pNameCompani.innerHTML = departamento.name
+        
         divIcons.classList.add('icons')
         imgEyes.src = '../assets/img/Vector.svg'
         imgEyes.classList.add('view')
-
+        
         imgPen.src = '../assets/img/pen.svg'
         imgPen.classList.add('edit')
         
         imgTrash.src = '../assets/img/lixo.svg'
         imgTrash.classList.add('delet')
-
+        
     })
 }
+
+export function renderUsersCadastrados (arrayUsers) {
+    const users = document.querySelector('.user')
+    users.innerHTML = ''
+
+    arrayUsers.forEach(async user => {
+        const li = document.createElement('li')
+        const divNames = document.createElement('div')
+        const h3 = document.createElement('h3')
+        const p = document.createElement('p')
+
+        const divIcons = document.createElement('div')
+        const imgPen = document.createElement('img')
+        const delet = document.createElement('img')
+
+        users.appendChild(li)
+        li.appendChild(divNames)
+        divNames.appendChild(h3)
+        divNames.appendChild(p)
+        
+        li.appendChild(divIcons)
+        divIcons.appendChild(imgPen)
+        divIcons.appendChild(delet)
+
+        h3.innerHTML = user.name
+        if(company_id === null){
+            p.innerHTML = 'Não contratado'
+        }else{ 
+            const empresa = await companiasPorId (company_id)
+            p.innerHTML = empresa.name
+        }
+        imgPen.src = "../assets/img/pen.svg"
+        delet.src = "../assets/img/lixo.svg"
+    })
+}
+
+export function showSelect(arrayEmpresas) {
+    const select = document.querySelector('.select')
+    const vazio = {}
+
+    arrayEmpresas.forEach(empresa => {
+        const opt = document.createElement('option')
+
+        select.appendChild(opt)
+
+        opt.innerText = empresa.name
+        opt.value = empresa.name
+
+        select.addEventListener('change', async (e) => {
+            if(e.target.value == 'All'){
+                renderDepartamentos()
+            }else{
+                const departamentos = await departamentPorEmpresa (empresa.id)
+                renderDepartamentos(departamentos)
+            }
+        })
+    });
+}
+

@@ -163,4 +163,5 @@
 }
 .departamentos__container > .user li > .icons img{
     cursor: pointer;
+    width: 20px;
 }

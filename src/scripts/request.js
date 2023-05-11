@@ -1,12 +1,15 @@
-
 import { toast } from "./toast.js"
 
 export const red = '#FF5630'
 export const green = '#36B37E'
 
 const baseURL = 'http://localhost:3333'
+
+const token = JSON.parse(localStorage.getItem('@token'))
+
 const requestHeader = {
-    'Content-type': 'application/json'
+    'Content-type': 'application/json',
+    "Authorization" : `Bearer ${token}`
 }
 
 // CATEGORIAS E EMPRESAS============================
@@ -18,6 +21,8 @@ export async function getEmpresas(){
     .then(async (res) => {
         if(res.ok){
             return res.json()
+        }else{
+            console.log('algo errado')
         }
     })
     return empresas
@@ -46,7 +51,6 @@ export async function companesCategory(nomeCategoria){
     })
     return empresa
 }
-//console.log(await getEmpresas())
 
 // CADASTRO============================
 
@@ -118,3 +122,62 @@ export async function loginRequest(loginBody){
 
 // ADMIN============================
 
+export async function departaments (){
+    const departamentos = await fetch(`${baseURL}/departments/readAll`, {
+        method: 'GET',
+        headers: requestHeader
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = await res.json()
+
+            return response
+        }
+    })
+    return departamentos
+}
+
+export async function departamentPorEmpresa (empresa_id) {
+    const departamento = await fetch(`${baseURL}/departments/readByCompany/${empresa_id}`, {
+        method: 'GET',
+        headers: requestHeader
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = await res.json()
+
+            return response
+        }
+    })
+    return departamento
+}
+
+export async function companiasPorId (idEmpresa) {
+    const empresasPorId = await fetch(`${baseURL}/companies/readById/${idEmpresa}`,{
+        method: 'GET',
+        headers: requestHeader
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = await res.json()
+
+            return response
+        }
+    })
+    return empresasPorId
+}
+
+export async function allUsers () {
+    const users = await fetch(`${baseURL}/employees/readAll`, {
+        method: 'GET',
+        headers: requestHeader
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = await res.json()
+
+            return response
+        }
+    })
+    return users
+}
