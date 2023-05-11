@@ -80,6 +80,7 @@
 }
 .views__container ul{
     width: 100%;
+    height: 240px;
 
     display: flex;
     flex-direction: row;
@@ -89,6 +90,8 @@
 
     overflow: auto;
     white-space:nowrap;
+
+    background-color: var(--color-grey-8);
 }
 .views__container ul::-webkit-scrollbar{
     height: 8px;

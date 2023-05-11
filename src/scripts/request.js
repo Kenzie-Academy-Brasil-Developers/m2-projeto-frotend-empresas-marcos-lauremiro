@@ -1,3 +1,4 @@
+
 import { toast } from "./toast.js"
 
 export const red = '#FF5630'
@@ -180,4 +181,44 @@ export async function allUsers () {
         }
     })
     return users
+}
+
+export async function contrateFuncionario (idFuncionario, departamentoId) {
+    console.log(JSON.stringify(departamentoId))
+    const funcionario = await fetch (`${baseURL}/employees/hireEmployee/${idFuncionario}`, {
+        method: 'PATCH',
+        headers: requestHeader,
+        body: JSON.stringify(departamentoId)
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = await res.json()
+
+            toast(green, 'Funcionario contratado com sucesso')
+
+            return response
+        }else{
+            toast(red, 'Algo deu errado')
+        }
+    })
+    return funcionario
+}
+
+export async function demiteFuncionario (idFuncionario) {
+    const funcionario = await fetch (`${baseURL}/employees/hireEmployee/${idFuncionario}`, {
+        method: 'PATCH',
+        headers: requestHeader
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = await res.json()
+
+            toast(green, 'Funcionario Demitido com sucesso')
+
+            return response
+        }else{
+            toast(red, 'Algo deu errado')
+        }
+    })
+    return funcionario
 }

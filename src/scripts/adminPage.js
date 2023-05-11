@@ -1,6 +1,7 @@
 import { deletUser, createDepartament, delet, editDepartament, editUser, viewsDepartament } from "./modalAdmin.js";
-import { renderDepartamentos, showSelect } from "./renders.js";
+import { renderDepartamentos, renderUsersCadastrados, showSelect } from "./renders.js";
 import { allUsers, departaments, getEmpresas } from "./request.js";
+
 
 createDepartament ()
 viewsDepartament ()
