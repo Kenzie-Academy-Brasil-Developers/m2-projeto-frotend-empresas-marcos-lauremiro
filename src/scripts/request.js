@@ -108,7 +108,7 @@ export async function loginRequest(loginBody){
                 }, 1000)
             }else{
                 setTimeout(() => {
-                    location.replace("../pages/userPages.html")
+                    location.replace("../pages/userPageC.html")
                 }, 1000)
             } 
             return response
@@ -318,4 +318,53 @@ export async function deletFuncionario(idFuncionario){
         }
     })
     return funcionario
+}
+
+// USER============================
+
+export async function funcionarioPerfil (){
+    const funcionario = await fetch(`${baseURL}/employees/profile`, {
+        method: 'GET',
+        headers: requestHeader
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = res.json()
+    
+            return response 
+        }else{
+            toast(red, 'algo errado')
+        }
+    })
+    return funcionario
+}
+
+export async function companiesIdUser(idCompany){
+    const funcionarios = await fetch(`${baseURL}/companies/readById/${idCompany}`,{
+        method: 'GET',
+        headers: requestHeader
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = res.json()
+
+            return response
+        }
+    })
+    return funcionarios
+}
+
+export async function DepartamentsIdUser(idDepartamentsUsers){
+    const departamentos = await fetch(`${baseURL}/departments/readById/${idDepartamentsUsers}`,{
+        method: 'GET',
+        headers: requestHeader
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = res.json()
+
+            return response
+        }
+    })
+    return departamentos
 }
