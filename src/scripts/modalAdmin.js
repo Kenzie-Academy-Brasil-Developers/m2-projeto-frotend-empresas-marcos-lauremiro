@@ -14,7 +14,6 @@ export function createDepartament () {
     const modalCriar = document.querySelector('.criate-departamento')
 
     criar.addEventListener('click', () => {
-        console.log('click')
         modalCriar.showModal()
     })
 }

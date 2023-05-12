@@ -1,5 +1,6 @@
 
-import { allUsers, companesCategory, companiasPorId, contrateFuncionario, departamentPorEmpresa } from "./request.js";
+import { editUser, allUsers, companesCategory, companiasPorId, contrateFuncionario, crearDepartamento, deletDepartament, departamentPorEmpresa, departaments, editDepartametoModal, red, deletFuncionario } from "./request.js";
+import { toast } from "./toast.js";
 
 
 // RENDER HOME PAGE ========================
@@ -59,6 +60,8 @@ export function renderDepartamentos (arrayDepartamentos) {
     departamentos.innerHTML = ''
 
     const modalView = document.querySelector('.views-departament')
+    const modalEdit = document.querySelector('.edit-departament')
+    const modalDelet = document.querySelector('.delet-modal')
     
     arrayDepartamentos.forEach(async departamento => {
         const li = document.createElement('li')
@@ -103,14 +106,24 @@ export function renderDepartamentos (arrayDepartamentos) {
         
         imgPen.src = '../assets/img/pen.svg'
         imgPen.classList.add('edit')
+        imgPen.addEventListener('click', () => {
+            modalEdit.showModal()
+            editDepartamento(departamento)      
+        })
         
         imgTrash.src = '../assets/img/lixo.svg'
         imgTrash.classList.add('delet')
-        
+        imgTrash.addEventListener('click', (e) =>{
+            modalDelet.showModal()
+            deletModalDepartament (departamento.id)
+        } )
     })
 }
 
 export function renderUsersCadastrados (arrayUsers) {
+    const modalEditUser = document.querySelector('.edit-user-modal')
+    const modalDeletUser =  document.querySelector('.delet-user-modal')
+
     const users = document.querySelector('.user')
     users.innerHTML = ''
 
@@ -139,17 +152,25 @@ export function renderUsersCadastrados (arrayUsers) {
         
         if(user.company_id){
             const empresa = await companiasPorId (user.company_id)
-            console.log(empresa) 
             p.innerHTML = empresa.name
         }else{ 
             p.innerHTML = 'Não contratado'
         }
         imgPen.src = "../assets/img/pen.svg"
+        imgPen.addEventListener('click', () => {
+            modalEditUser.showModal()
+            editUsers(user.id)
+        })
         delet.src = "../assets/img/lixo.svg"
+        delet.addEventListener('click' ,() => {
+            modalDeletUser.showModal()
+            deletUsers(user.id)
+        })
+        
     })
 }
 
-export function showSelect(arrayEmpresas) {
+export function showSelect(arrayEmpresas,departamento) {
     const select = document.querySelector('.select')
     const vazio = {}
 
@@ -162,9 +183,11 @@ export function showSelect(arrayEmpresas) {
         opt.value = empresa.name
 
         select.addEventListener('change', async (e) => {
+            console.log(e.target.value)
             if(e.target.value == 'All'){
-                renderDepartamentos()
+                renderDepartamentos(departamento)
             }else{
+                console.log(empresa.id)
                 const departamentos = await departamentPorEmpresa (empresa.id)
                 renderDepartamentos(departamentos)
             }
@@ -298,3 +321,151 @@ export async function renderModalView (departamento) {
 
 }
 
+export function showModalCreate(arrayEmpresas) {
+    const modalCriar = document.querySelector('.criate-departamento')
+    const inputs = document.querySelectorAll('.inp_edit')
+    const select =  document.querySelector('.select_edit')
+    const fechar = document.querySelector('.fechar_create')
+    const buttonCriar = document.querySelector('.button_criar')
+    let createBody = {}
+    let count = 0
+    
+    arrayEmpresas.forEach(empresa => {
+        const opt = document.createElement('option')
+        opt.innerText = empresa.name
+        opt.value = empresa.id
+
+        select.appendChild(opt)
+    })
+
+    buttonCriar.addEventListener('click',async (e) => {
+        e.preventDefault()
+        inputs.forEach( input => {
+            if(input.value.trim() == ''){
+                count ++
+            }
+
+            createBody[input.name] = input.value
+            createBody[select.name] = select.value
+            
+        })
+
+        if(count != 0){
+            return toast(red, 'Porfavor Preencha todos os campos corretamente')
+        }else{
+            await crearDepartamento(createBody).then(async () => {
+                const departamentAll = await departaments()
+                renderDepartamentos(departamentAll)
+            })
+            createBody = {}
+        }
+        modalCriar.close()
+    })
+
+    fechar.addEventListener('click', () => {
+        modalCriar.close()
+    })
+}
+
+export function editDepartamento(departament) {
+    const modalEdit = document.querySelector('.edit-departament')
+    const textArea = document.querySelector('.editar_descrição')
+    const buttonEdit = document.querySelector('.button_edit')
+    const fecharModal = document.querySelector('.fechar_edit')
+    let bodyEdit = {}
+    let count = 0
+
+    textArea.placeholder = departament.description
+
+    buttonEdit.addEventListener('click', async (e) => {
+        e.preventDefault()
+        if(textArea.value == ''){
+            count ++
+        }else{
+            bodyEdit[textArea.name] = textArea.value
+        }
+        
+        
+        if(count != 0){
+            return toast(red, 'Preencha todos os campos corretamente')
+        }else{
+            await editDepartametoModal(bodyEdit, departament.id).then(async () =>{
+                const departamentAll = await departaments()
+                renderDepartamentos(departamentAll)
+            })
+            modalEdit.close()
+        }
+    })
+    fecharModal.addEventListener('click', () => {
+        modalEdit.close()
+    })
+
+}
+
+export function deletModalDepartament (departamentoId){
+    const modalDelet = document.querySelector('.delet-modal')
+    const buttonDelet = document.querySelector('.delet_departament')
+    const fechar = document.querySelector('.fechar_delet')
+
+
+    buttonDelet.addEventListener('click', async (e) => {
+        e.preventDefault()
+        await deletDepartament(departamentoId).then(async () => {
+            const departamentAll = await departaments()
+            renderDepartamentos(departamentAll)
+        })
+        modalDelet.close()
+    })
+    fechar.addEventListener('click',() => modalDelet.close())
+}
+
+export function editUsers(funcionarioId) {
+    const modalUserEdit = document.querySelector('.edit-user-modal')
+    const inputs = document.querySelectorAll('.inp_editUser')
+    const buttonEdit = document.querySelector('.edit_user_buton')
+    const fechar = document.querySelector('.fechar_edit_user')
+    let bodyEdit = {}
+    let count = 0
+
+    buttonEdit.addEventListener('click', async (e) => {
+        e.preventDefault()
+        inputs.forEach(input => {
+            if(input.value == ''){
+                count++
+            }
+            inputs[input.name] = input.value
+        })
+        if(count != 0){
+            return toast(red, 'Porfavor Preencha todos os campos corretamente')
+        }else{
+            await editUser(bodyEdit, funcionarioId).then( async () => {
+                const allUser = await allUsers ()
+                renderUsersCadastrados (allUser)
+            })
+
+            modalUserEdit.close()
+        }
+    })
+    fechar.addEventListener('click', () => {
+        modalUserEdit.close()
+    })
+
+}
+
+export function deletUsers(idFuncionario){
+    const modalDeletUser =  document.querySelector('.delet-user-modal')
+    const buttonDeteletUser = document.querySelector('.button_deletUser')
+    const fechar = document.querySelector('.fechar_modal_delet_user')
+
+    buttonDeteletUser.addEventListener('click', async () => {
+       await deletFuncionario(idFuncionario).then( async () => {
+                const allUser = await allUsers ()
+                renderUsersCadastrados (allUser)
+
+                modalDeletUser.close()
+       })
+    })
+    fechar.addEventListener('click', () => {
+        modalDeletUser.close()
+    })
+}

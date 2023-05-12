@@ -222,3 +222,100 @@ export async function demiteFuncionario (idFuncionario) {
     })
     return funcionario
 }
+
+export async function crearDepartamento(bodyCreate) {
+    const depCrear = await fetch(`${baseURL}/departments/create`,{
+        method:'POST',
+        headers: requestHeader,
+        body: JSON.stringify(bodyCreate)
+    })
+    .then( async (res) => {
+        if(res.ok){
+            const response = await res.json()
+
+            toast(green, 'Departamento criado com sucesso')
+            return response
+        }else{
+            toast(red, 'Departamento ja cadastrada')
+        }
+    })
+    return depCrear
+}
+
+export async function editDepartametoModal(bodyEdit, departamentId) {
+    const departamentos = await fetch (`${baseURL}/departments/update/${departamentId}`,{
+        method: 'PATCH',
+        headers: requestHeader,
+        body: JSON.stringify(bodyEdit)
+    })
+    .then(async (res) =>{
+        if(res.ok){
+            const response = await res.json()
+
+            toast(green, 'Departamento editado com sucesso')
+
+            return response
+        }else{
+            toast (red, 'Algo deu erado')
+        }
+    })
+    return departamentos
+}
+
+export async function deletDepartament(departamentId){
+    const delet = await fetch(`${baseURL}/departments/delete/${departamentId}`, {
+        method:'DELETE',
+        headers: requestHeader
+    })
+    .then(async(res) => {
+        if(res.ok){
+            const response = await res.json()
+
+            toast(green, 'Departamento Deletado com sucesso')
+
+            return response
+        }else{
+            toast(red, 'O departamento não foi deletado')
+        }
+    })
+    return delet
+}
+
+export async function editUser(bodyEdit, funcionarioId){
+    const funcionario = await fetch(`${baseURL}/employees/updateEmployee/${funcionarioId}`, {
+        method: 'PATCH',
+        headers: requestHeader,
+        body: JSON.stringify(bodyEdit)
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = res.json()
+
+            toast(green, 'Usuario editado com sucesso')
+
+            return response
+        }else{
+            return toast(red,   'Algo deu errado')
+        }
+    })
+    return funcionario
+}
+
+export async function deletFuncionario(idFuncionario){
+    const funcionario = await fetch(`${baseURL}/employees/deleteEmployee/${idFuncionario}`, {
+        method: 'DELETE',
+        headers: requestHeader
+    })
+    .then(async (res) => {
+        if(res.ok){
+            const response = res.json()
+
+            toast(green, 'Funcionario deletado com sucesso')
+
+            return response
+        }else{
+            toast(red, 'Algo deu errado')
+        }
+    })
+    return funcionario
+}

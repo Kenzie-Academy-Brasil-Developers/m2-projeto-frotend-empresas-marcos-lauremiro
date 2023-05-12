@@ -120,15 +120,15 @@
         <div class="criate__container">
             <div class="header__criate">
                 <h1>Ciar departamento</h1>
-                <span>X</span>
+                <span class="fechar_create">X</span>
             </div>
             <form action="">
-                <input class="input" placeholder="Nome do detartamento" type="text" name="" id="">
-                <input class="input" placeholder="Descrição" type="text" name="" id="">
-                <select name="" id="">
-                    <option value="">Selecionar empresa</option>
+                <input class="input inp_edit" placeholder="Nome do detartamento" type="text" name="name" id="">
+                <input class="input inp_edit" placeholder="Descrição" type="text" name="description" id="">
+                <select class="select_edit" name="company_id" id="">
+                    <option value="0">Selecionar empresa</option>
                 </select>
-                <button class="button button__green">Criar</button>
+                <button class="button button__green button_criar">Criar</button>
             </form>
         </div>
     </dialog>
@@ -137,11 +137,11 @@
         <div class="edit__container">
             <div class="header__edit">
                 <h1>Editar Departamento</h1>
-                <span>X</span>
+                <span class="fechar_edit">X</span>
             </div>
             <form action="">
-                <textarea placeholder="Valores anteriores da descrição" name="" id="" cols="30" rows="5"></textarea>
-                <button class="button button__green">Salvar</button>
+                <textarea class="editar_descrição" placeholder="Valores anteriores da descrição" name="" id="" cols="30" rows="5"></textarea>
+                <button class="button button__green button_edit">Salvar</button>
             </form>
         </div>
     </dialog>
@@ -149,8 +149,8 @@
     <dialog class="delet-modal">
         <div class="delet__container">
             <h1>Realmente deseja remover o Departamento NOME e demitir seus funcionarios?</h1>
-            <button class="button button__red_back">Remover</button>
-            <span>X</span>
+            <button class="delet_departament button button__red_back">Remover</button>
+            <span class="fechar_delet">X</span>
         </div>
     </dialog>
 
@@ -158,12 +158,12 @@
         <div class="edit-user__container">
             <div class="header__edit-user">
                 <h1>Editar usuario</h1>
-                <span>X</span>
+                <span class="fechar_edit_user">X</span>
             </div>
             <form action="">
-                <input class="input" placeholder="Nome" type="text" name="" id="">
-                <input class="input" placeholder="E-mail" type="email" name="" id="">
-                <button class="button button__green">Salvar</button>
+                <input class="input inp_editUser" placeholder="Nome" type="text" name="name" id="">
+                <input class="input inp_editUser" placeholder="E-mail" type="email" name="email" id="">
+                <button class="button button__green edit_user_buton">Salvar</button>
             </form>
         </div>
     </dialog>
@@ -171,8 +171,8 @@
     <dialog class="delet-user-modal">
         <div class="delet-user__container">
             <h1>Realmente deseja remover o usuario NOME?</h1>
-            <button class="button button__red_back">Remover</button>
-            <span>X</span>
+            <button class="button_deletUser button button__red_back">Remover</button>
+            <span class="fechar_modal_delet_user">X</span>
         </div>
     </dialog>
 
