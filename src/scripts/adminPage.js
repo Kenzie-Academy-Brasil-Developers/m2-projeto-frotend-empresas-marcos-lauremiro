@@ -3,6 +3,7 @@ import { renderDepartamentos, renderUsersCadastrados, showModalCreate, showSelec
 import { allUsers, departaments, getEmpresas } from "./request.js";
 
 
+verificaToken()
 createDepartament ()
 viewsDepartament ()
 editDepartament ()
@@ -54,4 +55,11 @@ function logout () {
         localStorage.removeItem('@isAdm')
     })
 }
+
+function verificaToken() {
+    if(!localStorage.getItem('@token')){
+        location.replace('../../index.html')
+    }
+}
+
 logout ()

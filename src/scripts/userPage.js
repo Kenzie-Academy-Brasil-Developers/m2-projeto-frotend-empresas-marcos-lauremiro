@@ -1,4 +1,4 @@
-import { funcionarioPerfil } from "./request.js"
+import { DepartamentsIdUser, companiesIdUser, funcionarioPerfil } from "./request.js"
 
 
 function logout () {
@@ -84,8 +84,13 @@ function renderCompania(company, departament){
     });
 }
 
+function verificaToken() {
+    if(!localStorage.getItem('@token')){
+        location.replace('../../index.html')
+    }
+}
 
-
+verificaToken()
 renderNameEmail (await funcionarioPerfil())
 logout ()
 empresa (await funcionarioPerfil())

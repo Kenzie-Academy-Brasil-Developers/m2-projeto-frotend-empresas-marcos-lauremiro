@@ -184,7 +184,6 @@ export async function allUsers () {
 }
 
 export async function contrateFuncionario (idFuncionario, departamentoId) {
-    console.log(JSON.stringify(departamentoId))
     const funcionario = await fetch (`${baseURL}/employees/hireEmployee/${idFuncionario}`, {
         method: 'PATCH',
         headers: requestHeader,
@@ -201,7 +200,10 @@ export async function contrateFuncionario (idFuncionario, departamentoId) {
             toast(red, 'Algo deu errado')
         }
     })
+
     return funcionario
+
+
 }
 
 export async function demiteFuncionario (idFuncionario) {
