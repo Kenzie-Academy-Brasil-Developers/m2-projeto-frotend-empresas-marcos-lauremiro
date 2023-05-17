@@ -187,7 +187,6 @@ export function showSelect(arrayEmpresas,departamento) {
             if(e.target.value == 'All'){
                 renderDepartamentos(departamento)
             }else{
-                console.log(empresa.id)
                 const departamentos = await departamentPorEmpresa (empresa.id)
                 renderDepartamentos(departamentos)
             }
@@ -396,6 +395,7 @@ export function editDepartamento(departament) {
             modalEdit.close()
         }
     })
+    
     fecharModal.addEventListener('click', () => {
         modalEdit.close()
     })

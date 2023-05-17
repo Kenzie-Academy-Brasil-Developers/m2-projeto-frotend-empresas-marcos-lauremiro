@@ -3,16 +3,16 @@ import { renderDepartamentos, renderUsersCadastrados, showModalCreate, showSelec
 import { allUsers, departaments, getEmpresas } from "./request.js";
 
 
-verificaToken()
 createDepartament ()
+showSelect(await getEmpresas(), await departaments())
+renderUsersCadastrados (await allUsers())
+editUser ()
+deletUser ()
+
+renderDepartamentos (await departaments())
 viewsDepartament ()
 editDepartament ()
 delet ()
-editUser ()
-deletUser ()
-showSelect(await getEmpresas(), await departaments())
-renderDepartamentos (await departaments())
-renderUsersCadastrados (await allUsers())
 
 showModalCreate(await getEmpresas())
 
@@ -25,13 +25,13 @@ function logout () {
     const não = document.createElement('button')
     const div = document.createElement('div')
     const h1 = document.createElement('h1')
-
+    
     sim.classList.add('button__red_back')
     sim.classList.add('button')
     não.classList.add('button')
     não.classList.add('button_blue_back')
     modalLogout.classList.add('logout')
-
+    
     h1.innerHTML = 'Tem Certeza que deseja sair?'
     sim.innerText = 'Sim'
     não.innerText = 'Não'
@@ -63,3 +63,4 @@ function verificaToken() {
 }
 
 logout ()
+verificaToken()
